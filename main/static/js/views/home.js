@@ -19,7 +19,7 @@ async function getCatalogs(){
     for(let catalog of finalResponse){        
         // let catalogLink = '/manage-catalogs/products/' + catalog.id
         let catalogLink = `/manage-products/${catalog.id}?username=${username}`
-        cardsContainer.innerHTML += LinkCard(catalog.catalog_name, catalogLink, catalog.id, `localhost:8000/view-catalog/${catalog.id}`)
+        cardsContainer.innerHTML += LinkCard(catalog.catalog_name, catalogLink, catalog.id, `https://cataloger-app/view-catalog/${catalog.id}`)
     }
 }
 
