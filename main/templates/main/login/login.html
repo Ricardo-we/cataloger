@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %} 
+    <div class="container-sm mt-5">
+        <h2 style="text-align: center;">Login</h2>
+        <div class="container-sm">
+            <form method="POST" class="container-sm" action="{% url 'CheckUser' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">username</label>
+                    <input type="text" name="username" placeholder="username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="passwor">password</label>
+                    <input type="password" name="password" placeholder="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">gmail</label>
+                    <input type="email" name="email" placeholder="email" class="form-control">
+                </div>        
+                {% if failed == 'true' %}
+                    <div class="alert alert-danger" role="alert">
+                        username, password or gmail are incorrect or doesnt exists
+                    </div>
+                {% endif %}
+                <button class="btn btn-primary mt-2" style="width: 100%;">
+                    Login
+                </button>
+                <a href="{% url 'CreateUser' %}" class="link mt-4" style="font-size: 20px; margin-top: 30px;" >
+                    Doesnt have an account yet? create one
+                </a>
+            </form>
+        </div>
+    </div>
+    <script>
+        const sessionUser = sessionStorage.getItem('username');
+        if(sessionUser) window.location.href = '/home/?username=' + sessionUser 
+    </script>
+{% endblock %}

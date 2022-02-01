@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+
+	<!-- BOOTSTRAP-BOOTSWATCH -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cerulean/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<!-- SWEET ALERT -->
+	<link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui/material-ui.css" rel="stylesheet">
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+	<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+	<!-- FONTAWESOME -->
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+		integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+	<title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+		p, h1,h2,h3,h4,h5,h6, span, input, label, textarea, select, option, strong{
+			font-family: 'Roboto', sans-serif !important;
+			color: rgb(29, 29, 29);
+		}
+	</style>
+	<nav class="navbar navbar-expand-lg navbar-light bg-white mb-2">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">
+				<img src="{% static 'img/favicon.png' %}" style="width: 25px; height: 25px; object-fit:cover;">
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'Home' %}?username={{username}}">Manage catalogs</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'Login' %}" id="log-out-btn">Log out</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	{% block content %}
+
+	{% endblock %}
+	<!-- <footer class="navbar navbar-expand-lg navbar-light bg-light">
+		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			<li class="nav-item">
+				<a class="nav-link" href="#"></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Create</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Create</a>
+			</li>
+		</ul>
+	</footer> -->
+</body>
+
+<script>
+	const logOutBtn = document.querySelector('#log-out-btn');
+	logOutBtn.addEventListener('click', () => {
+		sessionStorage.removeItem('username')
+	})
+
+	function copyLinkToClipboard(data){
+		const copyElement = document.createElement("input");
+		copyElement.setAttribute('value', data);
+		document.body.appendChild(copyElement);
+		copyElement.select();
+		document.execCommand("copy");
+		document.body.removeChild(copyElement);
+	}
+</script>
+
+</html>
