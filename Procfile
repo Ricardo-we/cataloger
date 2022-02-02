@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn ProyectoEspecialPro.wsgi --log-file=-
+web: gunicorn OnlineCatalogs.wsgi --log-file=-
