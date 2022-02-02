@@ -82,10 +82,11 @@ def create_user(request):
 
         for user in Users.objects.all():
             if user.username == new_user or user.email == new_email:
-                return render(request,'main/create-user.html', {'failed': 'true'})
+                return render(request,'main/login/create-user.html', {'failed': 'true'})
 
         final_new_user = Users.objects.create(username=new_user, password=new_password, email=new_email)
         final_new_user.save()
+
         return redirect(f'/home/?username={new_user}')
     return render(request,'main/login/create-user.html', {'failed': ''})
 
