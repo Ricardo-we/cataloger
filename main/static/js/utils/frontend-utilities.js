@@ -1,16 +1,3 @@
-
- function Card(cardTitle, cardBody, cardLink, cardLinkText){
-    return `
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">${cardTitle}</h5>
-            <p class="card-text">${cardBody}</p>
-            <a href="${cardLink}" class="btn btn-primary">${cardLinkText}</a>
-        </div>
-    </div>
-    `
-}   
-
 function LinkCard(cardTitle, cardLink, id, catalogLink){
     return `
     <div class="card mx-1 my-1" style="width: 16rem; height: 11rem; over-flow:hidden;">
@@ -31,7 +18,7 @@ function LinkCard(cardTitle, cardLink, id, catalogLink){
                 <a href="/view-catalog/${id}" class="btn btn-link" style="text-align: center;">
                     <i class="fas fa-eye"></i>
                 </a>
-                <button class="btn ml-1" onClick="copyLinkToClipboard('${catalogLink}')" alt="copy link">
+                <button class="btn ml-1" id="clipboard-copy-${id}" value="${catalogLink}" onClick="copyLinkToClipboard('clipboard-copy-${id}')" alt="copy link">
                     <i class="fas fa-copy"></i>
                 </button>
             </div>

@@ -70,7 +70,14 @@ async function updateProduct(id, name, price, description, image){
             </div>
         </form>
         `
-    Swal.fire({
+    Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        }
+    ).fire({
         title: 'Update product',
         html: htmlForm,
         confirmButtonText: 'UPDATE',

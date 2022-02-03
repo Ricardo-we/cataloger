@@ -20,6 +20,7 @@
 	<!-- FONTAWESOME -->
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 		integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+	<script src="{% static 'js/views/guide-line.js' %}"></script>
 	<title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -50,6 +51,9 @@
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'Login' %}" id="log-out-btn">Log out</a>
 					</li>
+					<li class="nav-item">
+						<button class="btn nav-link" id="run-guide-btn">Guide</button>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -71,16 +75,21 @@
 		</ul>
 	</footer> -->
 </body>
-
 <script>
+	const guideBtn = document.querySelector('#run-guide-btn');
+	guideBtn.addEventListener('click', runFullGuide);
+
 	const logOutBtn = document.querySelector('#log-out-btn');
 	logOutBtn.addEventListener('click', () => {
 		sessionStorage.removeItem('username')
 	})
 
-	function copyLinkToClipboard(data){
+	function copyLinkToClipboard(inputId){
+		const clipBoardBtn = document.getElementById(inputId);
+		clipBoardBtn.innerHTML = "copied!"
+		setTimeout(() => clipBoardBtn.innerHTML = '<i class="fas fa-copy"></i>', 1000);
 		const copyElement = document.createElement("input");
-		copyElement.setAttribute('value', data);
+		copyElement.setAttribute('value', clipBoardBtn.value);
 		document.body.appendChild(copyElement);
 		copyElement.select();
 		document.execCommand("copy");

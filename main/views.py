@@ -87,13 +87,14 @@ def create_user(request):
         final_new_user = Users.objects.create(username=new_user, password=new_password, email=new_email)
         final_new_user.save()
 
-        return redirect(f'/home/?username={new_user}')
+        return redirect(f'/home/?username={new_user}&first-time=true')
     return render(request,'main/login/create-user.html', {'failed': ''})
 
 def home(request):
     username = request.GET.get('username')
+    first_time = request.GET.get('first-time')
     if not username: return redirect('/')
-    return render(request, 'main/catalog-views/home.html', {'username': username})
+    return render(request, 'main/catalog-views/home.html', {'username': username, 'first_time': first_time})
 
 def manage_products_view(request, catalogid):
     username = request.GET.get('username')

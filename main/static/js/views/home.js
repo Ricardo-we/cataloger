@@ -61,7 +61,13 @@ function updateCatalog(id){
                 <option value="£">£</option>
             </select>
         `
-    Swal.fire({
+    Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      }).fire({
         title: 'Update catalog',
         html: htmlForm,
         confirmButtonText: 'UPDATE',
@@ -88,7 +94,10 @@ function updateCatalog(id){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    try{
+        if(document.querySelector('#first-time').value === 'true') runFullGuide();
+    }
+    catch{}
     form.addEventListener('submit', e => {
         e.preventDefault();
         postCatalog()

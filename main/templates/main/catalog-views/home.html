@@ -3,6 +3,9 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
+    {% if first_time == 'true' %}
+        <input type="hidden" value="{{first_time}}" id="first-time">
+    {% endif %}
     <div class="container-xl">
         <div class="row">
             <form action="/manage-catalogs/" style="height: 290px;" class="form col-lg p-3 border rounded" method="post" id="catalogs-form">
@@ -33,6 +36,7 @@
         </div>
         </div>
     </div>
+
     <script src="{% static 'js/utils/frontend-utilities.js' %}"></script>
     <script src="{% static 'js/utils/session-management.js' %}"></script>
     <script src="{% static 'js/views/home.js' %}"></script>
