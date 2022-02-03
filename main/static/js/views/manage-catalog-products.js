@@ -2,6 +2,13 @@ const catalogId = document.querySelector('#catalog-id').value;
 const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 const productForm = document.querySelector('#product-form');
 const productsContainer = document.querySelector('#products-container');
+const modalConfig = {
+    customClass: {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+}
 
 async function getProducts(){
     const response = await fetch(`/manage-catalogs/products/${catalogId}?get-products=true`);
@@ -41,7 +48,7 @@ function productDetails(name, description, image=''){
         <img src="${image}" style="width: 400px; height: 200px; object-fit: cover;" alt="${name}">
         <p>${description}</p>
     `;
-    Swal.fire({
+    Swal.mixin(modalConfig).fire({
         title: name,
         html: imageHtml,
     })
@@ -70,14 +77,8 @@ async function updateProduct(id, name, price, description, image){
             </div>
         </form>
         `
-    Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-primary',
-            cancelButton: 'btn btn-danger'
-          },
-          buttonsStyling: false
-        }
-    ).fire({
+    Swal.mixin(modalConfig)
+    .fire({
         title: 'Update product',
         html: htmlForm,
         confirmButtonText: 'UPDATE',
