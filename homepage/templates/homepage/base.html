@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+	<!-- AOS library -->
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/yeti/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<!-- SWEET ALERT -->
+	<link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+	<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+		integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+	<!-- FONTAWESOME -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+	<script src="https://kit.fontawesome.com/738045bbba.js" crossorigin="anonymous"></script>
+	<title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+	<script>
+		AOS.init()
+	</script>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+		p, h1, h2, h3, h4, h5, h6, div, span, a, button, input, label, textarea, select, option, strong{
+			font-family: 'Roboto', sans-serif !important;
+			/* color: rgb(29, 29, 29); */
+		}
+	</style>
+    <nav class="navbar navbar-expand-lg navbar-light py-4 bg-white" style="position: fixed; width: 100%; top: 0; left: 0; z-index: 1;">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'img/favicon.png' %}" style="width: 25px; height: 25px; object-fit:cover;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav" style="width: 100%;">
+				<li class="nav-item">
+					<a class="nav-link" href="#home">Home </a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#features">Features</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#contact">Contact</a>
+				</li>
+				<div class="ml-auto">
+					<a class="btn btn-link text-dark" href="{% url 'Login' %}">Login</a>
+					<a class="btn btn-outline-info" href="{% url 'CreateUser' %}">Register</a>
+				</div>
+			</ul>
+		</div>
+      </nav>
+	{% block content %}
+
+	{% endblock %}
+
+	<footer class="text-center text-lg-start">
+		<div class="text-center text-white p-3 d-flex flex-wrap align-items-center justify-content-around" style="font-size: 15px; background-color: rgb(21,189,159);">
+			<div class="p-2 m-2">
+				<i class="fa fa-envelope-o" aria-hidden="true"></i>
+				<span>
+					ricardo0406dev@gmail.com
+				</span>	
+			</div>
+			<div class="p-2 m-2">
+				<i class="fa fa-whatsapp" aria-hidden="true"></i>
+				<span>
+					+502 5959 6125
+				</span>	
+			</div>
+			<div class="p-2 m-2">
+				<i class="fa fa-github" aria-hidden="true"></i>
+				<span>
+					Ricardo-we
+				</span>	
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

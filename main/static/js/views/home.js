@@ -1,25 +1,23 @@
-// import manageSession, { getSession } from "../utils/session-management.js";
-// import LinkCard from "../utils/frontend-utilities.js";
+
 const reqUsername = document.querySelector('#username'); 
-if(reqUsername.value.length <= 0 || reqUsername.value == 'None' ) window.location.href = '';
-else manageSession(reqUsername.value);
+manageSession(reqUsername.value);
 
 const cardsContainer = document.querySelector('#cards-container');
 const form = document.getElementById('catalogs-form');
 const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 const catalogNameInput = document.querySelector('#catalog-name');
 const username = getSession()
+const loadingIcon = `<i class="fas fa-spinner fa-spin" id="loading-icon" style="font-size: 50px; align-self: center;"></i>`;
 
 async function getCatalogs(){
     const response = await fetch(`/manage-catalogs/0?username=${username}`)
-    cardsContainer.innerHTML = `<i class="fas fa-spinner fa-spin" id="loading-icon" style="font-size: 50px; align-self: center;"></i>`;
+    cardsContainer.innerHTML = loadingIcon;
     const finalResponse = await response.json();
 
     cardsContainer.innerHTML = "";
     for(let catalog of finalResponse){        
-        // let catalogLink = '/manage-catalogs/products/' + catalog.id
         let catalogLink = `/manage-products/${catalog.id}?username=${username}`
-        cardsContainer.innerHTML += LinkCard(catalog.catalog_name, catalogLink, catalog.id, `https://cataloger-app.herokuapp.com/view-catalog/${catalog.id}`)
+        cardsContainer.innerHTML += CatalogCard(catalog.catalog_name, catalogLink, catalog.id, `https://cataloger-app.herokuapp.com/view-catalog/${catalog.id}`)
     }
 }
 
@@ -49,10 +47,10 @@ async function deleteCatalog(id){
     getCatalogs();
 }
 
-function updateCatalog(id){
+function updateCatalog(id, catalogName){
     const htmlForm = `
             <label>New catalog name</label>
-            <input value="" type="text" name="catalog-name" class="form-control" placeholder="catalog name" id="new-catalog-name">
+            <input value="${catalogName}" type="text" name="catalog-name" class="form-control" placeholder="catalog name" id="new-catalog-name">
             <select class="form-select form-control" name="currency" id="new-currency">
                 <option value="Q">Q</option>
                 <option value="$">$</option>
@@ -63,8 +61,8 @@ function updateCatalog(id){
         `
     Swal.mixin({
         customClass: {
-          confirmButton: 'btn btn-primary',
-          cancelButton: 'btn btn-danger'
+          confirmButton: 'btn btn-outline-primary',
+          cancelButton: 'btn btn-outline-danger'
         },
         buttonsStyling: false
       }).fire({
@@ -95,7 +93,12 @@ function updateCatalog(id){
 
 document.addEventListener('DOMContentLoaded', () => {
     try{
-        if(document.querySelector('#first-time').value === 'true') runFullGuide();
+        const guideViewed = localStorage.getItem('guide-checked');
+
+        if(document.querySelector('#first-time').value === 'true' && !guideViewed) {
+            runFullGuide()
+            localStorage.setItem('guide-checked', 'true');
+        }
     }
     catch{}
     form.addEventListener('submit', e => {

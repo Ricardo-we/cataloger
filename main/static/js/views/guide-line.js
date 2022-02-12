@@ -75,7 +75,7 @@ function runCatalogsGuide(){
 }
 
 function runProductsGuide(){
-    const steps = ['1', '2', '3']
+    const steps = ['1', '2', '3', '4']
 
     const guideStep = GuideStep(steps)
     
@@ -93,6 +93,16 @@ function runProductsGuide(){
                 1, 
                 buttonTemplate('far fa-edit', 'success'), 
                 'Will open a modal in where you can update a product of your catalog, name, price, description, image'
+            )
+            // 'far fa-plus-square'
+        )
+    )
+    .then(() => guideStep.fire(
+            guideStepsConfig(
+                'Add products', 
+                1, 
+                buttonTemplate('far fa-plus-square', 'link'), 
+                'You will see a card with this icon it will open a modal in where you can add a product'
             )
         )
     )

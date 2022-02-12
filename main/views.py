@@ -18,40 +18,50 @@ def check_user(request):
         else:
             return render(request, 'main/login/login.html', {'failed':'true'})
 
-    return redirect('/')
+    return redirect('/login')
 
 def manage_catalog_products(request, catalogid):
     requested_catalog = Catalog.objects.filter(id=catalogid)[0]
     catalog_products = CatalogProduct.objects.filter(catalog_name=requested_catalog)
-
-    if(request.GET.get('get-products') == 'true'):
-        final_response = []
-        for product in catalog_products:
-            product_data = {
+    def product_template_response(product):
+        return {
                 'id': product.id,
                 'name': product.product_name,
                 'price': product.product_price,
                 'description': product.product_description,
-                'image': product.product_image.url
-            }
+                'image': product.product_image.url,
+                'currency': requested_catalog.currency
+        }
+
+    if(request.GET.get('get-products') == 'true'):
+        final_response = []
+        for product in catalog_products:
+            product_data = product_template_response(product)
             final_response.append(product_data)
 
         return JsonResponse(final_response,safe=False)
 
     elif(request.method == 'POST' and not request.GET.get('method') == 'PUT'):
-        name = request.POST.get('product-name')
-        price = request.POST.get('product-price')
-        description = request.POST.get('product-description')
-        image = request.FILES['product-image']
+        try:
+            name = request.POST.get('product-name')
+            price = request.POST.get('product-price')
+            description = request.POST.get('product-description')
+            image = request.FILES['product-image']
 
-        CatalogProduct.objects.create(
-            catalog_name=requested_catalog,
-            product_name=name, 
-            product_price=price, 
-            product_description=description,
-            product_image=image
-        ).save()
-        return JsonResponse({'message': 'success'})
+            product = CatalogProduct.objects.create(
+                catalog_name=requested_catalog,
+                product_name=name, 
+                product_price=price, 
+                product_description=description,
+                product_image=image
+            )
+            product.save()
+
+            product = CatalogProduct.objects.filter(id=product.id)[0]
+
+            return JsonResponse(product_template_response(product), safe=False)
+        except:
+            return JsonResponse({'message': 'failed'})
 
     elif(request.method == 'DELETE' and request.GET.get('product-id')):
         product_id = request.GET.get('product-id')
@@ -59,18 +69,21 @@ def manage_catalog_products(request, catalogid):
         return JsonResponse({'message': 'success'}, safe=False)
 
     elif(request.method == 'POST' and request.GET.get('method') == 'PUT'):
-            product_id = request.POST.get('product-id')
-            old_product = CatalogProduct.objects.get(id=product_id)
+            try:
+                product_id = request.POST.get('product-id')
+                old_product = CatalogProduct.objects.get(id=product_id)
 
-            old_product.product_name = request.POST.get('product-name')
-            old_product.product_price = request.POST.get('product-price')
-            old_product.product_description = request.POST.get('product-description')
-            if len(request.FILES) > 0:
-                old_product.product_image = request.FILES['product-image']
+                old_product.product_name = request.POST.get('product-name')
+                old_product.product_price = request.POST.get('product-price')
+                old_product.product_description = request.POST.get('product-description')
+                if len(request.FILES) > 0:
+                    old_product.product_image = request.FILES['product-image']
 
-            old_product.save()
+                old_product.save()
 
-            return JsonResponse({'message': 'success'})
+                return JsonResponse(product_template_response(old_product), safe=False)
+            except:
+                return JsonResponse({'message':'failed'},safe=False)
 
     return render(request, 'main/catalog-views/manage-catalog-products.html',{'catalog_id': catalogid})
 
@@ -93,12 +106,23 @@ def create_user(request):
 def home(request):
     username = request.GET.get('username')
     first_time = request.GET.get('first-time')
-    if not username: return redirect('/')
+    if not username: return redirect('/login')
     return render(request, 'main/catalog-views/home.html', {'username': username, 'first_time': first_time})
 
 def manage_products_view(request, catalogid):
     username = request.GET.get('username')
     return render(request, 'main/catalog-views/manage-catalog-products.html',{'catalog_id': catalogid,'username':username})
+    
+def product_detail_management(request, catalog_id, product_id):
+    product = CatalogProduct.objects.get(id=product_id)
+    catalog = Catalog.objects.get(id=catalog_id)
+    context = {
+        'product': product,
+        'catalog':catalog
+    }
+    
+    return render(request, 'main/catalog-views/single-product-view-management.html', context)
+
 
 def catalog_view(request, catalog_id):
     requested_catalog = Catalog.objects.get(id=catalog_id)
@@ -113,7 +137,6 @@ def catalog_view(request, catalog_id):
 def product_detail_view(request, catalog_id, product_id):
     product = CatalogProduct.objects.get(id=product_id)
     catalog = Catalog.objects.get(id=catalog_id)
-    print(catalog.currency)
     context = {
         'product': product,
         'catalog':catalog

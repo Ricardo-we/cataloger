@@ -9,7 +9,7 @@ function manageSession(username){
 function getSession(){
     const session = sessionStorage.getItem('username');
     if(!session){
-        window.location.href = '';
+        window.location.href = '/login';
     }
     return session;
 }

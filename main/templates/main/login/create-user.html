@@ -27,14 +27,14 @@
                 <button class="btn btn-primary mt-2" style="width: 100%;">
                     Create
                 </button>
-                <a href="{% url 'CheckUser' %}" class="link mt-4" style="font-size: 20px;" >
+                <a href="{% url 'Login' %}" class="link mt-4" style="font-size: 20px;" >
                     Already have an account? login
                 </a>
             </form>
         </div>
     </div>
     <script>
-        const sessionUser = sessionStorage.getItem('username');
-        if(sessionUser) window.location.href = '/home/?username=' + sessionUser 
+        // const sessionUser = sessionStorage.getItem('username');
+        // if(sessionUser) window.location.href = '/home/?username=' + sessionUser 
     </script>
 {% endblock %}

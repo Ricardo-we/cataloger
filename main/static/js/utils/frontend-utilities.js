@@ -1,13 +1,13 @@
-function LinkCard(cardTitle, cardLink, id, catalogLink){
+function CatalogCard(catalogName, cardLink, id, catalogLink){
     return `
-    <div class="card mx-1 my-1" style="width: 16rem; height: 11rem; over-flow:hidden;">
+    <div class="card mx-1 my-1" style="width: 16rem; height: 11rem; over-flow:hidden;" id="id">
         <div class="card-body">
-            <h5 class="card-title mt-3">${cardTitle}</h5>
+            <h5 class="card-title mt-3">${catalogName}</h5>
             <div class="mt-3 d-flex flex-row align-items-center justify-content-center">
-                <a href="${cardLink}" class="btn btn-outline-info mx-2">
+                <a href="${cardLink}" class="btn btn-outline-secondary mx-2" style="border: 1px solid rgb(21,189,159); color: rgb(21,189,159);">
                     <i class="fas fa-shopping-bag"></i>
                 </a>
-                <button class="btn btn-outline-success mx-2"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="updateCatalog(${id})">
+                <button class="btn btn-outline-success mx-2"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="updateCatalog(${id},'${catalogName}')">
                     <i class="far fa-edit"></i>
                 </button>
                 <button class="btn btn-outline-danger mx-2" onClick="deleteCatalog(${id})">
@@ -27,24 +27,46 @@ function LinkCard(cardTitle, cardLink, id, catalogLink){
     `
 }   
 
-function ProductCard(productName, productPrice, productId, productImage, productDescription){
+function ProductCard(catalogId, product){
     return `
-    <div class="card mx-1 my-1" style="width: 16rem; height: 12rem; overflow:hidden;">
+        <div class="card mt-4 mx-3 text-dark catalog-product" style="width: 18rem; cursor: pointer;"  id="${product.id}">
+            <img class="card-img-top" style=" height: 200px; object-fit: cover;" src="${product.image}" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title mt-3">${productName}</h5>
-                <h3>Price: ${productPrice}</h3>
-                <div class="mt-3 d-flex flex-row align-items-center justify-content-center">
-                <button class="btn btn-outline-primary mx-2" onclick="productDetails('${productName}', '${productDescription}', '${productImage}')">
+                <p class="card-text">${product.name}</p>
+                <strong>${product.currency}${product.price}</strong>
+            </div>
+            <div class="mt-3 d-flex flex-row align-items-center justify-content-center hidden-buttons">
+                <a class="btn btn-outline-primary mx-2" href="/${catalogId}/product-view-management/${product.id}">
                     <i class="fas fa-eye"></i>
-                </button>
-                <button class="btn btn-outline-success mx-2" onclick="updateProduct(${productId}, '${productName}',${productPrice}, '${productDescription}', '${productImage}')">
+                </a>
+                <button class="btn btn-outline-success mx-2" onclick="updateProduct(${product.id}, '${product.name}',${product.price}, '${product.description}', '${product.image}')">
                     <i class="far fa-edit"></i>
                 </button>
-                <button class="btn btn-outline-danger mx-2" onclick="deleteProduct(${productId})">
+                <button class="btn btn-outline-danger mx-2" onclick="deleteProduct(${product.id})">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </div>
         </div>
-    </div>
+    `
+}
+
+function ProductCardInner(catalogId, product){
+    return `
+        <img class="card-img-top" style=" height: 200px; object-fit: cover;" src="${product.image}" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">${product.name}</p>
+            <strong>${product.currency}${product.price}</strong>
+        </div>
+        <div class="mt-3 d-flex flex-row align-items-center justify-content-center hidden-buttons">
+            <a class="btn btn-outline-primary mx-2" href="/${catalogId}/product-view-management/${product.id}">
+                <i class="fas fa-eye"></i>
+            </a>
+            <button class="btn btn-outline-success mx-2" onclick="updateProduct(${product.id}, '${product.name}',${product.price}, '${product.description}', '${product.image}')">
+                <i class="far fa-edit"></i>
+            </button>
+            <button class="btn btn-outline-danger mx-2" onclick="deleteProduct(${product.id})">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
     `
 }

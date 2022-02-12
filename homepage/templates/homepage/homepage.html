@@ -1,0 +1,134 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+
+{% block title %}Cataloger{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/homepage/homepage.css' %}">
+    <a name="home"></a>
+    <header class="welcome-header" data-aos="fade-up">
+        <div class="container text-center">
+            <h1>CATALOGER</h1>
+            <span style="transition: 0.5s ease-in-out; width:100%; display: inline-block; background-color: white; height: 3px;"></span>
+            <!-- <span>Welcome to cataloger</span> -->
+            <img src="{% static 'img/favicon.png' %}" alt="">
+        </div>
+        <div class="wave" style="height: 150px; overflow: hidden;" >
+            <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
+                <path d="M0.00,49.99 C153.60,158.39 349.60,-49.99 500.57,49.99 L499.76,176.15 L0.32,174.18 Z" style="stroke: none; fill: #fff;">
+                </path>
+            </svg>
+        </div>
+    </header>
+
+    <main class="main-wraper bg-white mt-5">
+        <!-- INTRODUCCION , PRESENTACION DEL PRODUCTO  -->
+        <div data-aos="fade-down" data-aos-duration="2000" class="text-center d-flex flex-wrap align-items-center justify-content-around" style="margin-bottom: 190px;">
+            <img src="{% static 'img/homepage/cartoon-img-2.png' %}" alt="welcome-image-2" class="md-image">
+            <div class="inner-info-container">
+                <h1 class="mb-3">What is cataloger?</h1>
+                <p class="mb-3">
+                    Cataloger is an app that let you create catalogs of anything you need
+                    with a simple product management system you can add, update and remove 
+                    your catalogs
+                </p>
+            </div>
+        </div>
+
+        <a name="features"></a>
+        <section  data-aos="fade-right" data-aos-duration="2000"class="d-flex align-items-center flex-wrap justify-content-evenly" style="margin: 150px 0px; ">
+            <!-- <div class="text-center my-4 p-5" style="width: 80%; margin: 0 auto;" data-aos="fade-up"> -->
+                <div class="text-dark text-center my-4 p-5" style="width: 80%; margin: 0 auto; padding: 55px 0px;">
+                    <h1>Create your catalog</h1>
+                    <p>
+                        You can create your catalog in a really simple way just create an account and start creating your catalog! get more clients with a virtual catalog
+                    </p>
+                </div>
+            <!-- </div> -->
+            <div class="slider">
+                <div class="all-slides" id="all-slides-container">
+                    <div class="slide">
+                        <img src="{% static 'img/homepage/slider-1.jpg' %}" alt="" class="slide-img">
+                    </div>
+                    <div class="slide">
+                        <img src="{% static 'img/homepage/slider-2.jpg' %}" alt="" class="slide-img">
+                    </div>
+                    <div class="slide">
+                        <img src="{% static 'img/homepage/slider-3.jpg' %}" alt="" class="slide-img">
+                    </div>
+                    <div class="slide">
+                        <img src="{% static 'img/homepage/slider-4.jpg' %}" alt="" class="slide-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-aos="flip-left" data-aos-duration="2000" class="container-md features-section d-flex flex-wrap align-items-center justify-content-around">   
+            <h1 style="display: block; width: 100%;text-align: center;">How to use cataloger</h1>
+            <div class="service-card">
+                <img src="{% static 'img/homepage/cartoon-img-1.png' %}" alt="">
+                <h4><strong>Register</strong></h4>
+                <div class="content-wraper close-details" id="card-1">
+                    <p>
+                        You just need to register or sign in then start a new catalog add update and remove your catalog products however you want 
+                    </p>
+                </div>
+                <button class="btn btn-outline-primary details-btn" id="card-btn-1" onclick="openCardDetails('card-1',this.id)">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+            <div class="service-card">
+                <img src="{% static 'img/homepage/cartoon-img-4.png' %}" alt="">
+                <h4><strong>Create more</strong></h4>
+                <div class="content-wraper close-details" id="card-2">
+                    <p>
+                        You can create more than 1 catalog, you can replace your physical catalogs with virtual with cataloger
+                    </p>
+                </div>
+                <button class="btn btn-outline-primary details-btn" id="card-btn-2" onclick="openCardDetails('card-2',this.id)">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+            <div class="service-card">
+                <img src="{% static 'img/homepage/cartoon-img-3.png' %}" alt="">
+                <h4><strong>Share your catalog</strong></h4>
+                <div class="content-wraper close-details" id="card-3">
+                    <p>
+                        Finally you can share your catalogs with your link, follow the guide to get started, share your link, and increase your sales
+                    </p>
+                </div>
+                <button class="btn btn-outline-primary details-btn" id="card-btn-3" onclick="openCardDetails('card-3',this.id)">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+            
+        </section>
+
+        <a name="contact"></a>
+        <div class="contact-container">
+            <div class="wave" style="height: 150px; overflow: hidden;" >
+                <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
+                    <path d="M0.00,49.99 C150.16,150.00 280.86,3.48 500.57,49.99 L500.57,0.00 L0.00,0.00 Z" style="stroke: none; fill: #fff;">
+                    </path>
+                </svg>
+            </div>
+
+            <div class="contact-form-container">
+                <h2 class="text-white text-left" data-aos="flip-down" data-aos-duration="2000" style="display: block; font-size: 35px;">Any problem or doubt?, contact us</h2>
+                <form action="{% url 'HomePage' %}" method="POST" class="contact-form" data-aos="flip-down" data-aos-duration="2000">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Name" name="name" class="form-control">
+                    <input type="email" placeholder="Email" name="email" class="form-control">
+                    <textarea style="resize: none;" class="form-control" placeholder="Message" name="message" cols="30" rows="10"></textarea>
+                    <button type="submit" class="btn btn-outline-light btn-block">SUBMIT</button>
+                </form>
+                {% if message == 'failed' %}
+                <div class="alert alert-danger" role="alert">
+                    This is a danger alert—check it out!
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+        
+    <script src="{% static 'js/views/homepage.js' %}"></script>
+    {% endblock %}
