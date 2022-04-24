@@ -6,10 +6,10 @@
     {% if first_time == 'true' %}
         <input type="hidden" value="{{first_time}}" id="first-time">
     {% endif %}
-    <input type="hidden" name="username" id="username" value="{{username}}">
     <div class="container-xl">
         <div class="row">
             <form action="/manage-catalogs/" style="height: 290px;" class="form col-lg p-3" method="post" id="catalogs-form">
+                <input type="hidden" name="username" id="username" value="{{username}}">
                 {% csrf_token %}
                 <h2>Add catalog</h2>
                 <div class="form-group">

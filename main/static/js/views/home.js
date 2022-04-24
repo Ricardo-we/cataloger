@@ -6,22 +6,23 @@ const cardsContainer = document.querySelector('#cards-container');
 const form = document.getElementById('catalogs-form');
 const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 const catalogNameInput = document.querySelector('#catalog-name');
-const username = getSession()
+const username = getSession();
 const loadingIcon = `<i class="fas fa-spinner fa-spin" id="loading-icon" style="font-size: 50px; align-self: center;"></i>`;
 
 async function getCatalogs(){
-    const response = await fetch(`/manage-catalogs/0?username=${username}`)
     cardsContainer.innerHTML = loadingIcon;
+    const response = await fetch(`/manage-catalogs/0?username=${username}`)
     const finalResponse = await response.json();
 
     cardsContainer.innerHTML = "";
     for(let catalog of finalResponse){        
         let catalogLink = `/manage-products/${catalog.id}?username=${username}`
-        cardsContainer.innerHTML += CatalogCard(catalog.catalog_name, catalogLink, catalog.id, `https://cataloger-app.herokuapp.com/view-catalog/${catalog.id}`)
+        cardsContainer.innerHTML += CatalogCard(catalog.catalog_name, catalogLink, catalog.id, `/view-catalog/${catalog.id}`)
     }
 }
 
 async function postCatalog(){
+    cardsContainer.innerHTML = loadingIcon;
     const formData = new FormData(form);
     catalogNameInput.value = "";
     
@@ -32,11 +33,13 @@ async function postCatalog(){
             'X-CSRFToken': csrftoken,
         }
     })
+
     const jsonResponse = await response.json();
-    console.log(jsonResponse)
+    return jsonResponse
 }
 
 async function deleteCatalog(id){
+    cardsContainer.innerHTML = loadingIcon;
     const response = await fetch(`/manage-catalogs/${id}`,{
         method: 'DELETE',
         headers: {
@@ -44,7 +47,7 @@ async function deleteCatalog(id){
         }
     })
 
-    getCatalogs();
+    return await getCatalogs();
 }
 
 function updateCatalog(id, catalogName){
@@ -103,9 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
     catch{}
     form.addEventListener('submit', e => {
         e.preventDefault();
-        postCatalog()
-        .then(() => getCatalogs());
-        catalogNameInput.value = ''
+        postCatalog().then(() => {
+            getCatalogs()
+            form.reset()
+        });
     });
 
     getCatalogs();
