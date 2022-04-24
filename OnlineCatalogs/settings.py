@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-)7&5#26_r8h)l68)novna2ktji3v9%gm0-k_%b+749n2(tnpw8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://cataloger-app.herokuapp.com']
+ALLOWED_HOSTS = ['cataloger-app.herokuapp.com']
 
 
 # Application definition
