@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 import cloudinary_storage
 import cloudinary
-import django_heroku
+# import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)7&5#26_r8h)l68)novna2ktji3v9%gm0-k_%b+749n2(tnpw8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['cataloger-app.herokuapp.com']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'homepage',
-    # 'rest_framework',
+    "helpers",
+    'rest_framework',
     'cloudinary_storage',
     'cloudinary'
 ]
@@ -93,10 +94,10 @@ WSGI_APPLICATION = 'OnlineCatalogs.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd9ba8fkejnrekt',
-        'USER': 'cnvovocejacjme',
-        'PASSWORD': 'f465a1acc9d56cc0f02ca4c1936b341700c8767916e0daf6bcc0bd9ca42077ea',
-        'HOST': 'ec2-50-17-255-244.compute-1.amazonaws.com',
+        'NAME': 'onlinecatalogs',
+        'USER': 'postgres',
+        'PASSWORD': 'mami_1981',
+        'HOST': 'localhost',
         'PORT': '5432'
     }
 }
@@ -136,7 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') if not DEBUG else os.path.join(BASE_DIR, "main", 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # django_heroku.settings(locals())
 

@@ -19,11 +19,9 @@
                 <div class="form-group">
                     <label>Currency</label>
                     <select class="form-select form-control" name="currency" id="currency">
-                        <option value="Q">Q</option>
-                        <option value="$">$</option>
-                        <option value="€">€</option>
-                        <option value="¥">¥</option>
-                        <option value="£">£</option>
+                        {% for currency_code in currency_codes %}
+                            <option value="{{currency_code.code}}">{{currency_code.code}}</option>
+                        {%  endfor %}
                     </select>
                 </div>
                 <button class="btn btn-outline-primary btn-block" type="submit">ADD</button>

@@ -10,16 +10,9 @@ class Users(models.Model):
         verbose_name_plural = 'Users'
 
 class Catalog(models.Model):
-    CHOICES = [
-        ('Q', 'Q'),
-        ('USD', '$'),
-        ('EUR', '€'),
-        ('JPY', '¥'),
-        ('GBP', '£'),
-    ]
     username = models.ForeignKey(Users, null=True, on_delete=models.CASCADE)
     catalog_name = models.CharField(max_length=250, verbose_name="Catalog name")
-    currency = models.CharField(max_length=100,choices=CHOICES, blank=True, null=True, default="Q")
+    currency = models.CharField(max_length=100, blank=True, null=True, default="Q")
     class Meta:
         verbose_name = 'Catalog'
         verbose_name_plural = 'Catalogs'
