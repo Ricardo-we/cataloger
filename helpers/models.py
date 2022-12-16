@@ -12,7 +12,8 @@ class HelperCategorie(models.Model):
 
 class Helper(models.Model):
     code = models.CharField(max_length=255, unique=True)
-    extra = models.CharField(max_length=300)
+    name = models.CharField(max_length=300, null=True, blank=True)
+    extra = models.CharField(max_length=500)
     helper_categorie = models.ForeignKey(HelperCategorie, on_delete=models.CASCADE)
 
     class Meta:
