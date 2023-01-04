@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-)7&5#26_r8h)l68)novna2ktji3v9%gm0-k_%b+749n2(tnpw8'
-
+WHITENOISE_AUTOREFRESH = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -141,7 +141,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') if not DEBUG else os.path.jo
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # django_heroku.settings(locals())
 
 MEDIA_URL = '/media/'

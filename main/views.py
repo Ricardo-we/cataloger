@@ -95,19 +95,22 @@ def manage_catalog_products(request, catalogid):
 
 
 def create_user(request):
-    if(request.method == 'POST'):
-        new_user = request.POST.get('username')
-        new_password = request.POST.get('password')
-        new_email = request.POST.get('email')
+    try:
 
-        for user in Users.objects.all():
-            if user.username == new_user or user.email == new_email:
-                return render(request, 'main/login/create-user.html', {'failed': 'true'})
+        if(request.method == 'POST'):
+            new_user = request.POST.get('username')
+            new_password = request.POST.get('password')
+            new_email = request.POST.get('email')
 
-        final_new_user = Users.objects.create(username=new_user, password=new_password, email=new_email)
-        final_new_user.save()
+            for user in Users.objects.all():
+                if user.username == new_user or user.email == new_email:
+                    return render(request, 'main/login/create-user.html', {'failed': 'true'})
 
-        return redirect(f'/home/?username={new_user}&first-time=true')
+            final_new_user = Users.objects.create(username=new_user, password=new_password, email=new_email)
+            final_new_user.save()
+
+            return redirect(f'/home/?username={new_user}&first-time=true')
+    except: pass
     return render(request, 'main/login/create-user.html', {'failed': ''})
 
 
