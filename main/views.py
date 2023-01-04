@@ -21,8 +21,9 @@ def check_user(request):
                 return redirect(f'/home/?username={username}')
             else:
                 return render(request, 'main/login/login.html', {'failed': 'true'})
-    except:
-        return redirect('/login')
+    except Exception as err:
+        print(err)
+    return redirect('/login')
 
 
 def manage_catalog_products(request, catalogid):
