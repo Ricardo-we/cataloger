@@ -116,16 +116,21 @@ def create_user(request):
 
 
 def home(request):
-    username = request.GET.get('username')
-    first_time = request.GET.get('first-time')
-    currency_codes = HelperService.get_helper_by_categorie_name("languages").all()
-    if not username:
-        return redirect('/login')
-    return render(
-        request,
-        'main/catalog-views/home.html',
-        {'username': username, 'first_time': first_time, "currency_codes": currency_codes}
-    )
+    try:
+        username = request.GET.get('username')
+        first_time = request.GET.get('first-time')
+        currency_codes = HelperService.get_helper_by_categorie_name("languages")
+        print(currency_codes)
+        if not username:
+            return redirect('/login')
+        return render(
+            request,
+            'main/catalog-views/home.html',
+            {'username': username, 'first_time': first_time, "currency_codes": currency_codes }
+        )
+    except Exception as err:
+        print(err)
+        return HttpResponse(content="<h2>Something went wrong</h2>",)
 
 
 def manage_products_view(request, catalogid):
