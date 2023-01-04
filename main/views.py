@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Catalog, Users, CatalogProduct
 from django.http import HttpResponse, JsonResponse
 import smtplib
-from helpers.services.HelperService import HelperService 
+from helpers.services.HelperService import HelperService
 # Create your views here.
 
 
@@ -21,7 +21,7 @@ def check_user(request):
                 return redirect(f'/home/?username={username}')
             else:
                 return render(request, 'main/login/login.html', {'failed': 'true'})
-    except: 
+    except:
         return redirect('/login')
 
 
@@ -120,7 +120,7 @@ def home(request):
     return render(
         request,
         'main/catalog-views/home.html',
-        {'username': username, 'first_time': first_time, "currency_codes":currency_codes}
+        {'username': username, 'first_time': first_time, "currency_codes": currency_codes}
     )
 
 
