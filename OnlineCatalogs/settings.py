@@ -14,8 +14,9 @@ from pathlib import Path
 import os
 import cloudinary_storage
 import cloudinary
+from dotenv import load_dotenv
+load_dotenv()
 # import django_heroku
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -94,11 +95,11 @@ WSGI_APPLICATION = 'OnlineCatalogs.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'onlinecatalogs',
-        'USER': 'postgres',
-        'PASSWORD': 'mami_1981',
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': os.environ.get("DB_HOST"),
+        # 'PORT': '5432'
     }
 }
 
@@ -146,9 +147,9 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dr1bcvjei',
-    'API_KEY': '781785116467195',
-    'API_SECRET': 'GAG-MypeTvZAndpLoeex50l4N4o'
+    'CLOUD_NAME': os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    'API_KEY': os.environ.get("CLOUDINARY_API_KEY"),
+    'API_SECRET': os.environ.get("CLOUDINARY_API_SECRET")
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
